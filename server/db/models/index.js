@@ -5,8 +5,8 @@ const User = require('./user');
 //const Watchlist = require('./watchlist');
 
 //movie belongs to (associations)
-Genre.belongsToMany(Movie, {through: 'MovieGenre'});
-Movie.belongsToMany(Genre, {through: 'MovieGenre'});
+// Genre.belongsToMany(Movie, {through: 'MovieGenre'});
+// Movie.belongsToMany(Genre, {through: 'MovieGenre'});
 
 //Watchlist.belongsTo(User);
 

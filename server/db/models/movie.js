@@ -12,10 +12,7 @@ const Movie = db.define('movie', {
     type: Sequelize.STRING,
   },
   duration: {
-    type: Sequelize.INTEGER,
-    get() {
-      return this.duration + 'min';
-    }
+    type: Sequelize.INTEGER
   },
   description: {
     type: Sequelize.TEXT
@@ -30,6 +27,6 @@ const Movie = db.define('movie', {
     //total ratings added divided by total users that rated
     // 40 / 10 = 4 stars
   }
-})
+});
 
 module.exports = Movie;

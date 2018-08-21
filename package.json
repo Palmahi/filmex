@@ -11,34 +11,37 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Palmahi/filmex-1.git"
+    "url": "git+https://github.com/Palmahi/filmex.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Palmahi/filmex-1/issues"
+    "url": "https://github.com/Palmahi/filmex/issues"
   },
-  "homepage": "https://github.com/Palmahi/filmex-1#readme",
+  "homepage": "https://github.com/Palmahi/filmex#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "morgan": "^1.9.0",
-    "pg": "^7.4.3",
-    "sequelize": "^4.38.0",
     "webpack": "^4.17.0",
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "favicon": "0.0.2",
+    "morgan": "^1.9.0",
     "nodemon": "^1.18.3",
+    "npm": "^6.4.0",
+    "pg": "^7.4.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^4.38.0"
   }
 }
