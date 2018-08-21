@@ -1,6 +1,6 @@
-const db = require('../backend/db')
+const db = require('../server/db');
 
-const {User, Movie, Genre} = require('../backend/db/models')
+const {User, Movie, Genre} = require('../server/db/models');
 
 async function seed () {
   await db.sync({force: true})
