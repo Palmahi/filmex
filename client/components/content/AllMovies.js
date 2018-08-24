@@ -44,7 +44,6 @@ class AllMovies extends Component {
     }
 }
 
-
 const mapState = state => {
     return {
         movies: state.movies,
