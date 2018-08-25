@@ -1,0 +1,26 @@
+body {
+    background-color: #24282C;
+    font-family: 'Open Sans', sans-serif;
+}
+#nav {
+    background-color: #34889c;
+}
+
+.menu {
+    background-color: #373D41; 
+}
+
+.main-text {
+    text-transform: uppercase;
+    padding: 0 17px;
+    font-size: 14px;
+}
+
+.spacer {
+    margin-left: 15px;
+}
+
+.grey {
+    color: #999;
+    font-size: 12px;
+}

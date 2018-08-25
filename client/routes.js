@@ -8,7 +8,7 @@ const Routes = (props) => {
         <Router>
             <div className="App">
                 <Navbar/>
-                <div className="container">
+                <div className="container-fluid">
                     <Switch>
                         <Route path="/" component={Dashboard} />
                     </Switch>
