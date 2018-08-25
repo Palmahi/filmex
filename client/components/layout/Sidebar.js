@@ -4,7 +4,7 @@ class Sidebar extends Component {
   render() {
     return (
       <div>
-        <h2>Movies Genres</h2>
+        <span className="text-white main-text">Movies Genres</span>
       </div>
     )
   }

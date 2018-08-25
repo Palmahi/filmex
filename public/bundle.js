@@ -124,31 +124,36 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
-            null,
+            { className: 'container-fluid' },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
-                { className: 'row' },
+                { className: 'row ml-4' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     'div',
-                    { className: 'col-md-12 display-4 mb-2' },
+                    { className: 'col-md-12 display-4 mb-2 text-white' },
                     'AllMovies'
                 ),
                 ' ',
                 movies.map(movie => {
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                         'div',
-                        { className: 'col-md-3', key: movie.id },
+                        { className: 'col-md-3 text-white', key: movie.id },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                             'dl',
                             null,
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                'div',
+                                { 'class': 'col-sm-4' },
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { 'class': 'img-responsive', src: movie.poster, height: '260', width: '180' })
+                            ),
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                                 'dt',
-                                null,
+                                { className: 'spacer' },
                                 movie.title
                             ),
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                                 'dd',
-                                null,
+                                { className: 'spacer grey' },
                                 movie.director
                             )
                         )
@@ -202,7 +207,7 @@ class Dashboard extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       { className: 'row' },
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
         'div',
-        { className: 'col-md-2' },
+        { className: 'menu col-md-2' },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], null)
       ),
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -235,10 +240,10 @@ class Navbar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     render() {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'nav',
-            { className: 'navbar navbar-expand-md navbar-dark bg-dark mb-4' },
+            { className: 'navbar navbar-expand-md navbar-dark', id: 'nav' },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
-                { className: 'container' },
+                { className: 'container-fluid' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
                     { to: '/', className: 'navbar-brand' },
@@ -269,12 +274,12 @@ __webpack_require__.r(__webpack_exports__);
 class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      'div',
+      "div",
       null,
       react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        'h2',
-        null,
-        'Movies Genres'
+        "span",
+        { className: "text-white main-text" },
+        "Movies Genres"
       )
     );
   }
@@ -343,7 +348,7 @@ const Routes = props => {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layout_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
-                { className: 'container' },
+                { className: 'container-fluid' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"],
                     null,
@@ -418,31 +423,31 @@ const GET_ALL_MOVIES = 'GET_ALL_MOVIES';
 
 //ACTION CREATORS
 function getAllMovies(movies) {
-  return { type: GET_ALL_MOVIES, movies };
+    return { type: GET_ALL_MOVIES, movies };
 }
 
 //THUNKS
 const fetchAllMovies = () => {
-  return dispatch => {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/movies').then(res => res.data).then(movies => {
-      //     movies.map(trip => trip.categories.map(category => category.name))
-      return dispatch(getAllMovies(movies));
-    }).catch(console.error);
-  };
+    return dispatch => {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/movies').then(res => res.data).then(movies => {
+            //     movies.map(trip => trip.categories.map(category => category.name))
+            return dispatch(getAllMovies(movies));
+        }).catch(console.error);
+    };
 };
 
 const initialState = {
-  movies: []
+    movies: []
 
-  //REDUCER(S)
+    //REDUCER(S)
 
 };/* harmony default export */ __webpack_exports__["default"] = (function (state = initialState, action) {
-  switch (action.type) {
-    case GET_ALL_MOVIES:
-      return action.movies;
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case GET_ALL_MOVIES:
+            return action.movies;
+        default:
+            return state;
+    }
 });
 
 /***/ }),

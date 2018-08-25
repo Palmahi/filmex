@@ -24,16 +24,18 @@ class AllMovies extends Component {
             movies.push(item)
         })
         return (
-            <div>
-                <div className="row">
-                <div className="col-md-12 display-4 mb-2">AllMovies</div>
+            <div className="container-fluid">
+                <div className="row ml-4">
+                <div className="col-md-12 display-4 mb-2 text-white">AllMovies</div>
                     {' '}
                     {movies.map(movie => {
                         return (
-                            <div className="col-md-3" key={movie.id}>
+                            <div className="col-md-3 text-white" key={movie.id}>
                                 <dl>
-                                    <dt>{movie.title}</dt>
-                                    <dd>{movie.director}</dd>
+                                    
+                                    <div class="col-sm-4"><img class="img-responsive" src={movie.poster} height="260" width="180" /></div>
+                                    <dt className="spacer">{movie.title}</dt>
+                                    <dd className="spacer grey">{movie.director}</dd>
                                 </dl>
                         </div>
                         )

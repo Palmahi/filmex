@@ -6,7 +6,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-2">
+        <div className="menu col-md-2">
             <Sidebar/>
         </div>
         <div className="col-md-10">
