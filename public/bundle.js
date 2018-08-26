@@ -248,6 +248,45 @@ class Navbar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                     react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
                     { to: '/', className: 'navbar-brand' },
                     'Filmex'
+                ),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    'div',
+                    { className: 'collapse navbar-collapse' },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        'ul',
+                        { className: 'navbar-nav mr-auto nav-link' },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                'button',
+                                { 'class': 'btn btn-default navbar-btn nav-btn' },
+                                'Popular Movies'
+                            )
+                        ),
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                'button',
+                                { 'class': 'btn btn-default navbar-btn nav-btn' },
+                                'Recently Added'
+                            )
+                        )
+                    ),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        'ul',
+                        { className: 'navbar-nav ml-auto' },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            'li',
+                            { className: 'nav-item' },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"],
+                                { to: '/login', className: 'nav-link' },
+                                ' Login'
+                            )
+                        )
+                    )
                 )
             )
         );
