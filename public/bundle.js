@@ -308,23 +308,61 @@ class Navbar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store */ "./client/store/index.js");
+
+
 
 
 class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      "div",
-      null,
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        "span",
-        { className: "text-white main-text" },
-        "Movies Genres"
-      )
-    );
-  }
+    componentDidMount() {
+        this.props.getAllGenres();
+    }
+    render() {
+        const genresFromProps = this.props.genres; //object
+        const genres = [];
+        Object.keys(genresFromProps).map((e, idx) => {
+            let item = genresFromProps[e];
+            genres.push(item);
+        });
+        console.log('Genres ', typeof genres);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'div',
+            null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                'span',
+                { className: 'text-white main-text' },
+                'Movies Genres'
+            ),
+            genres.map(genre => {
+                return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    'div',
+                    { className: 'text-white', key: genre.id },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        'span',
+                        null,
+                        genre.genre
+                    )
+                );
+            })
+        );
+    }
 }
+const mapState = state => {
+    return {
+        genres: state.genres
+    };
+};
 
-/* harmony default export */ __webpack_exports__["default"] = (Sidebar);
+const mapDispatch = dispatch => {
+    return {
+        getAllGenres: () => {
+            dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_2__["fetchAllGenres"])());
+        }
+    };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapState, mapDispatch)(Sidebar));
 
 /***/ }),
 
@@ -402,11 +440,60 @@ const Routes = props => {
 
 /***/ }),
 
+/***/ "./client/store/genres.js":
+/*!********************************!*\
+  !*** ./client/store/genres.js ***!
+  \********************************/
+/*! exports provided: GET_ALL_GENRES, getAllGenres, fetchAllGenres, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_GENRES", function() { return GET_ALL_GENRES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllGenres", function() { return getAllGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllGenres", function() { return fetchAllGenres; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+
+//ACTION TYPES
+const GET_ALL_GENRES = 'GET_ALL_GENRES';
+
+//ACTION CREATORS
+function getAllGenres(genres) {
+  return { type: GET_ALL_GENRES, genres };
+}
+
+//THUNKS
+const fetchAllGenres = () => {
+  return dispatch => {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/genres').then(res => res.data).then(genres => {
+      return dispatch(getAllGenres(genres));
+    }).catch(console.error);
+  };
+};
+
+// const initialState = {
+//     genres: []
+// }
+
+//REDUCER(S)
+/* harmony default export */ __webpack_exports__["default"] = (function (state = [], action) {
+  switch (action.type) {
+    case GET_ALL_GENRES:
+      return action.genres;
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./client/store/index.js":
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, GET_ALL_MOVIES, getAllMovies, fetchAllMovies */
+/*! exports provided: default, GET_ALL_MOVIES, getAllMovies, fetchAllMovies, GET_ALL_GENRES, getAllGenres, fetchAllGenres */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -418,11 +505,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _movies__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./movies */ "./client/store/movies.js");
+/* harmony import */ var _genres__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./genres */ "./client/store/genres.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_MOVIES", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["GET_ALL_MOVIES"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllMovies", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["getAllMovies"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchAllMovies", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["fetchAllMovies"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_GENRES", function() { return _genres__WEBPACK_IMPORTED_MODULE_5__["GET_ALL_GENRES"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllGenres", function() { return _genres__WEBPACK_IMPORTED_MODULE_5__["getAllGenres"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchAllGenres", function() { return _genres__WEBPACK_IMPORTED_MODULE_5__["fetchAllGenres"]; });
+
 
 
 
@@ -431,12 +526,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const reducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-    movies: _movies__WEBPACK_IMPORTED_MODULE_4__["default"]
+    movies: _movies__WEBPACK_IMPORTED_MODULE_4__["default"],
+    genres: _genres__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer, Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], Object(redux_logger__WEBPACK_IMPORTED_MODULE_1__["createLogger"])())));
 
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
 
 
 /***/ }),
