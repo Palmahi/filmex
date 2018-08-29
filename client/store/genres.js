@@ -3,6 +3,7 @@ import axios from 'axios';
 //ACTION TYPES
 export const GET_ALL_GENRES = 'GET_ALL_GENRES';
 
+
 //ACTION CREATORS
 export function getAllGenres(genres) {
     return {type: GET_ALL_GENRES, genres}

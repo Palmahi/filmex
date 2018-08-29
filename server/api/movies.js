@@ -10,3 +10,14 @@ router.get('/', (req, res, next) => {
   })
   .catch(next)
 });
+
+router.get('/:id', (req, res, next) => {
+  Movie.findById(req.params.id)
+  .then(movies => res.send(movies))
+  .catch(next)
+})
+
+
+
+
+
