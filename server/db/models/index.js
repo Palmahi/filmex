@@ -5,18 +5,10 @@ const User = require('./user');
 //const Watchlist = require('./watchlist');
 
 //movie belongs to (associations)
-// Genre.belongsToMany(Movie, {through: 'MovieGenre'});
-// Movie.belongsToMany(Genre, {through: 'MovieGenre'});
 
-//Watchlist.belongsTo(User);
+Genre.hasMany(Movie);
+Movie.belongsTo(Genre)
 
-// Order.belongsTo(Trip);
-// //CartId on Order
-// Cart.hasMany(Order);
-// Order.belongsTo(Cart);
-// //UserId on Cart
-// User.hasMany(Cart);
-// Cart.belongsTo(User);
 
 //export all modules
 module.exports = {

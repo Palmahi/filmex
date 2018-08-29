@@ -2,7 +2,7 @@
 //we have it all
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllMovies } from '../../store';
+import { fetchAllMovies, fetchAllMoviesByGenre } from '../../store';
 
 class AllMovies extends Component {
     constructor() {
@@ -14,6 +14,7 @@ class AllMovies extends Component {
 
     componentDidMount(){
         this.props.getAllMovies();
+
     }
 
     render() {
@@ -23,6 +24,8 @@ class AllMovies extends Component {
             let item = moviesFromProps[e];
             movies.push(item)
         })
+        //console.log('Props: ', this.props)
+
         return (
             <div className="container-fluid">
                 <div className="row ml-4">

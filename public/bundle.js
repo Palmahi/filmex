@@ -122,6 +122,8 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             let item = moviesFromProps[e];
             movies.push(item);
         });
+        //console.log('Props: ', this.props)
+
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
             { className: 'container-fluid' },
@@ -191,7 +193,6 @@ const mapDispatch = dispatch => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Dashboard; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _content_AllMovies__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../content/AllMovies */ "./client/components/content/AllMovies.js");
@@ -201,23 +202,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Dashboard extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-      'div',
-      { className: 'row' },
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        'div',
-        { className: 'menu col-md-2' },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], null)
-      ),
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-        'div',
-        { className: 'col-md-10' },
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_AllMovies__WEBPACK_IMPORTED_MODULE_1__["default"], null)
-      )
-    );
-  }
+    constructor(props) {
+        super(props);
+    }
+
+    propsFromChild() {}
+
+    render() {
+        //console.log('Dashboard Props ', this.props)
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'div',
+            { className: 'row' },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                'div',
+                { className: 'menu col-md-2' },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], { parentProps: this.propsFromChild.bind(this) })
+            ),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                'div',
+                { className: 'col-md-10' },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_AllMovies__WEBPACK_IMPORTED_MODULE_1__["default"], null)
+            )
+        );
+    }
 }
+/* harmony default export */ __webpack_exports__["default"] = (Dashboard);
 
 /***/ }),
 
@@ -310,14 +319,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store */ "./client/store/index.js");
+/* harmony import */ var _layout_Dashboard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../layout/Dashboard */ "./client/components/layout/Dashboard.js");
+
 
 
 
 
 class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+    constructor() {
+        super();
+        this.state = {
+            id: null
+        };
+    }
+
     componentDidMount() {
         this.props.getAllGenres();
     }
+
+    setIdOnClick(id) {
+        //this.props.parentProps(id)
+        this.setState({
+            id: id
+        });
+    }
+
     render() {
         const genresFromProps = this.props.genres; //object
         const genres = [];
@@ -325,7 +351,8 @@ class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             let item = genresFromProps[e];
             genres.push(item);
         });
-        console.log('Genres ', typeof genres);
+
+        console.log('props state', this.props);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
             null,
@@ -339,9 +366,13 @@ class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                     'div',
                     { className: 'text-white', key: genre.id },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                        'span',
-                        null,
-                        genre.genre
+                        'a',
+                        { href: '#', onClick: this.setIdOnClick.bind(this, genre.id) },
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            'span',
+                            null,
+                            genre.genre
+                        )
                     )
                 );
             })
@@ -493,7 +524,7 @@ const fetchAllGenres = () => {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, GET_ALL_MOVIES, getAllMovies, fetchAllMovies, GET_ALL_GENRES, getAllGenres, fetchAllGenres */
+/*! exports provided: default, GET_ALL_MOVIES, FILTERED_MOVIES, getAllMovies, filterMovies, fetchAllMovies, GET_ALL_GENRES, getGenres, fetchGenres */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -508,9 +539,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _genres__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./genres */ "./client/store/genres.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_MOVIES", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["GET_ALL_MOVIES"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_MOVIES_BY_GENRE", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["GET_ALL_MOVIES_BY_GENRE"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllMovies", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["getAllMovies"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllMoviesByGenre", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["getAllMoviesByGenre"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchAllMovies", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["fetchAllMovies"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fetchAllMoviesByGenre", function() { return _movies__WEBPACK_IMPORTED_MODULE_4__["fetchAllMoviesByGenre"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_GENRES", function() { return _genres__WEBPACK_IMPORTED_MODULE_5__["GET_ALL_GENRES"]; });
 
@@ -542,38 +579,55 @@ const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(reducer,
 /*!********************************!*\
   !*** ./client/store/movies.js ***!
   \********************************/
-/*! exports provided: GET_ALL_MOVIES, getAllMovies, fetchAllMovies, default */
+/*! exports provided: GET_ALL_MOVIES, GET_ALL_MOVIES_BY_GENRE, getAllMovies, getAllMoviesByGenre, fetchAllMovies, fetchAllMoviesByGenre, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_MOVIES", function() { return GET_ALL_MOVIES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GET_ALL_MOVIES_BY_GENRE", function() { return GET_ALL_MOVIES_BY_GENRE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllMovies", function() { return getAllMovies; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllMoviesByGenre", function() { return getAllMoviesByGenre; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllMovies", function() { return fetchAllMovies; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllMoviesByGenre", function() { return fetchAllMoviesByGenre; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 
 //ACTION TYPES
 const GET_ALL_MOVIES = 'GET_ALL_MOVIES';
+const GET_ALL_MOVIES_BY_GENRE = 'GET_ALL_MOVIES_BY_GENRE';
 
 //ACTION CREATORS
 function getAllMovies(movies) {
     return { type: GET_ALL_MOVIES, movies };
 }
 
+function getAllMoviesByGenre(genreId) {
+    return { type: GET_ALL_MOVIES_BY_GENRE, genreId };
+}
+
 //THUNKS
 const fetchAllMovies = () => {
     return dispatch => {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/movies').then(res => res.data).then(movies => {
-            //     movies.map(trip => trip.categories.map(category => category.name))
+            //movies.map(movie => movie.filter(movie.genreId === genre))
             return dispatch(getAllMovies(movies));
         }).catch(console.error);
     };
 };
 
+const fetchAllMoviesByGenre = id => {
+    return dispatch => {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(`/api/genres/${id}`).then(res => res.data).then(movies => {
+            return dispatch(getAllMoviesByGenre(id));
+        }).catch(console.error);
+    };
+};
+
 const initialState = {
-    movies: []
+    movies: [],
+    moviesByGenre: []
 
     //REDUCER(S)
 
@@ -581,6 +635,8 @@ const initialState = {
     switch (action.type) {
         case GET_ALL_MOVIES:
             return action.movies;
+        case GET_ALL_MOVIES_BY_GENRE:
+            return action.moviesByGenre;
         default:
             return state;
     }
