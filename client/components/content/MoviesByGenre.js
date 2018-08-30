@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMoviesByGenre } from '../../store';
+import { fetchAllMoviesByGenre } from '../../store';
 
 class MoviesByGenre extends Component {
     constructor() {
@@ -17,6 +17,7 @@ class MoviesByGenre extends Component {
 
     render() {
         const moviesFromProps  = this.props.movies;//object
+        // const genreFromProps = this.props.genre; 
         const movies = [];
         Object.keys(moviesFromProps).map((e,idx) => {
             let item = moviesFromProps[e];
@@ -56,7 +57,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         getMoviesByGenre: () => {
-            dispatch(fetchMoviesByGenre());
+            dispatch(fetchAllMoviesByGenre());
         }
     }
 }
