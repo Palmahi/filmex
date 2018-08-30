@@ -9,10 +9,10 @@ class SingleMovie extends Component {
       }
   }
 
-  componentDidMount(){
-    this.props.getMovie();
+//   componentDidMount(){
+//     this.props.getMovie();
 
-}
+// }
 
 render() {
   }
