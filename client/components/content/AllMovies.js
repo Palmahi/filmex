@@ -4,9 +4,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllMovies, fetchAllMoviesByGenre } from '../../store';
 
+
 class AllMovies extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
 
         }
@@ -17,6 +18,11 @@ class AllMovies extends Component {
 
     }
 
+    movies(){
+        const { where = () => true } = this.props
+        return this.props.movies.filter(where)
+    }
+
     render() {
         const moviesFromProps  = this.props.movies;//object
         const movies = [];
@@ -24,7 +30,7 @@ class AllMovies extends Component {
             let item = moviesFromProps[e];
             movies.push(item)
         })
-        //console.log('Props: ', this.props)
+        console.log('props: ', this.props)
 
         return (
             <div className="container-fluid">
@@ -49,9 +55,11 @@ class AllMovies extends Component {
     }
 }
 
-const mapState = state => {
+const mapState = (state, ownProps)=> {
+    //console.log('props: ',  ownProps)
     return {
         movies: state.movies,
+        //id: ownProps.match.params.id
     }
 }
   

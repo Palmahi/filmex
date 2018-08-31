@@ -46,17 +46,24 @@ async function seed () {
     Genre.create({genre: 'Crime'}),
   ])
   
-  const addGenre = await Promise.all([
-    Movie.findById(1).then(movie => movie.setGenre(2)), //([4,5])
-    Movie.findById(2).then(movie => movie.setGenre(1)), 
-    Movie.findById(3).then(movie => movie.setGenre(5)),
-    Movie.findById(4).then(movie => movie.setGenre(5)),
-    Movie.findById(5).then(movie => movie.setGenre(4)),
-    Movie.findById(6).then(movie => movie.setGenre(1)),
-    Movie.findById(7).then(movie => movie.setGenre(5)),
-    Movie.findById(8).then(movie => movie.setGenre(2)),
-    Movie.findById(9).then(movie => movie.setGenre(6)),
-    Movie.findById(10).then(movie => movie.setGenre(1)),
+  // const addGenre = await Promise.all([
+  //   Movie.findById(1).then(movie => movie.setGenre(2)), //([4,5])
+  //   Movie.findById(2).then(movie => movie.setGenre(1)), 
+  //   Movie.findById(3).then(movie => movie.setGenre(5)),
+  //   Movie.findById(4).then(movie => movie.setGenre(5)),
+  //   Movie.findById(5).then(movie => movie.setGenre(4)),
+  //   Movie.findById(6).then(movie => movie.setGenre(1)),
+  //   Movie.findById(7).then(movie => movie.setGenre(5)),
+  //   Movie.findById(8).then(movie => movie.setGenre(2)),
+  //   Movie.findById(9).then(movie => movie.setGenre(6)),
+  //   Movie.findById(10).then(movie => movie.setGenre(1)),
+  // ])
+
+
+  const addTripsToCategories = await Promise.all([
+    Genre.findById(1).then(movies => movies.addMovie(2)),
+    Genre.findById(1).then(movies => movies.addMovie(1)),
+    // Category.findById(1).then(category => category.addTrip(5)),
   ])
 }
 
