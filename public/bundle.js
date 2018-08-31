@@ -524,7 +524,7 @@ const fetchAllGenres = () => {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, GET_ALL_MOVIES, FILTERED_MOVIES, getAllMovies, filterMovies, fetchAllMovies, GET_ALL_GENRES, getGenres, fetchGenres */
+/*! exports provided: default, GET_ALL_MOVIES, GET_ALL_MOVIES_BY_GENRE, getAllMovies, getAllMoviesByGenre, fetchAllMovies, fetchAllMoviesByGenre, GET_ALL_GENRES, getAllGenres, fetchAllGenres */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
