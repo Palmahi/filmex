@@ -20,7 +20,7 @@ export const fetchAllMovies = () => {
       axios.get('/api/movies')
         .then(res => res.data)
         .then(movies => {
-            //movies.map(movie => movie.filter(movie.genreId === genre))
+            movies.map(movie => movie.genres.map(genre => genre.genre))
             return  dispatch(getAllMovies(movies));
         })
         .catch(console.error);

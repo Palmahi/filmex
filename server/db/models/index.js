@@ -6,8 +6,11 @@ const User = require('./user');
 
 //movie belongs to (associations)
 
-Genre.hasMany(Movie);
-Movie.belongsTo(Genre)
+// Genre.hasMany(Movie);
+// Movie.belongsTo(Genre)
+
+Genre.belongsToMany(Movie, {through: 'MovieGenre'});
+Movie.belongsToMany(Genre, {through: 'MovieGenre'});
 
 
 //export all modules

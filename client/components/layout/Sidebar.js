@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { fetchAllGenres } from '../../store';
 import Dashboard from '../layout/Dashboard';
 
@@ -29,17 +30,20 @@ class Sidebar extends Component {
             let item = genresFromProps[e];
             genres.push(item)
         })
-
-        console.log('props state', this.props)
+        //console.log('props: ', this.props.match.params.id)
+        //console.log('props state', this.props)
         return (
           <div>
             <span className="text-white main-text">Movies Genres</span>
             {genres.map(genre => {
                         return (
-                          <div className="text-white" key={genre.id}>
-                              <a href="#" onClick={this.setIdOnClick.bind(this, genre.id)} >
+                          <div className="text-white" >
+                                <Link to={`/movies/genre/${genre.id}`} key={genre.id}>
+                                    <ul>{genre.genre}</ul>
+                                </Link>
+                              {/* <a href="#" onClick={this.setIdOnClick.bind(this, genre.id)} >
                                   <span>{genre.genre}</span>
-                              </a>  
+                              </a>   */}
                         </div>
                         )
                     })}
