@@ -11,6 +11,7 @@ class AllMovies extends Component {
         this.state = {
 
         }
+        this.filter = this.filter.bind(this);
     }
 
     componentDidMount(){
@@ -18,48 +19,84 @@ class AllMovies extends Component {
 
     }
 
-    movies(){
-        const { where = () => true } = this.props
-        return this.props.movies.filter(where)
+    // movies(){
+    //     const { where = () => true } = this.props
+    //     return this.props.movies.filter(where)
+    // }
+
+    filter(movies) {
+
+        return movies.filter(movie => movie.genres.id === this.props.idProps);
     }
 
     render() {
-        const moviesFromProps  = this.props.movies;//object
+        const moviesFromProps = this.props.movies;//object
         const movies = [];
         Object.keys(moviesFromProps).map((e,idx) => {
             let item = moviesFromProps[e];
             movies.push(item)
         })
-        console.log('props: ', this.props)
 
-        return (
-            <div className="container-fluid">
-                <div className="row ml-4">
-                <div className="col-md-12 display-4 mb-2 text-white">AllMovies</div>
-                    {' '}
-                    {movies.map(movie => {
-                        return (
-                            <div className="col-md-3 text-white" key={movie.id}>
-                                <dl>
-                                    
-                                    <div class="col-sm-4"><img class="img-responsive" src={movie.poster} height="260" width="180" /></div>
-                                    <dt className="spacer">{movie.title}</dt>
-                                    <dd className="spacer grey">{movie.director}</dd>
-                                </dl>
-                        </div>
-                        )
-                    })}
+        const id = this.props.idProps;
+        const genre = this.props.nameProps
+
+        const filteredMovies = movies.filter(movie => movie.genres.id === this.props.idProps);
+
+        // console.log('filtered: ', this.filter(movies))
+        // console.log('props NAME: ', this.props.nameProps)
+
+        if(id === null) {
+            return (
+                <div className="container-fluid">
+                    <div className="row ml-4">
+                    <div className="col-md-12 display-4 mb-2 text-white">AllMovies</div>
+                        {' '}
+                        {movies.map(movie => {
+                            return (
+                                <div className="col-md-3 text-white" key={movie.id}>
+                                    <dl>
+                                        
+                                        <div class="col-sm-4"><img class="img-responsive" src={movie.poster} height="260" width="180" /></div>
+                                        <dt className="spacer">{movie.title}</dt>
+                                        <dd className="spacer grey">{movie.director}</dd>
+                                    </dl>
+                            </div>
+                            )
+                        })}
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }
+        else{
+            return (
+                <div className="container-fluid">
+                    <div className="row ml-4">
+                    <div className="col-md-12 display-4 mb-2 text-white">{genre}</div>
+                        {' '}
+                        {movies.filter(singleMovie => singleMovie.genres.id === this.props.idProps)
+                        .map(movie => {
+
+                            return (
+                                <div className="col-md-3 text-white" key={movie.id}>
+                                    <dl>
+                                        
+                                        <div class="col-sm-4"><img class="img-responsive" src={movie.poster} height="260" width="180" /></div>
+                                        <dt className="spacer">{movie.title}</dt>
+                                        <dd className="spacer grey">{movie.director}</dd>
+                                    </dl>
+                            </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            )
+        }    
     }
 }
 
-const mapState = (state, ownProps)=> {
-    //console.log('props: ',  ownProps)
+const mapState = state => {
     return {
         movies: state.movies,
-        //id: ownProps.match.params.id
     }
 }
   

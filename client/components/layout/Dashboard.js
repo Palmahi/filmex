@@ -3,23 +3,31 @@ import AllMovies from '../content/AllMovies';
 import Sidebar from './Sidebar';
 
 class Dashboard extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
+        this.state = {
+            genreId: null,
+            genreName: ''
+        }
+        this.idFilter = this.idFilter.bind(this);
     }
 
-    propsFromChild(){
+    idFilter(event, id, name){
+        this.setState({
+            genreId: id,
+            genreName: name
+        });
     }
 
     render() {
-        //console.log('Dashboard Props ', this.props)
+        //console.log('Dashboard Props ', this.state.genreId)
         return (
             <div className="row">
                 <div className="menu col-md-2">
-                    <Sidebar parentProps={this.propsFromChild.bind(this)}/>
+                    <Sidebar idFilter={this.idFilter}  idProps={this.state.genreId} nameProps={this.state.genreName}/>
                 </div>
                 <div className="col-md-10">
-                  {/* <h1>React Boilerplate 1 2 </h1> */}
-                  <AllMovies/>
+                  <AllMovies idProps={this.state.genreId} nameProps={this.state.genreName}/>
                 </div>
             </div>
         )
