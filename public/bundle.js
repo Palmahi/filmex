@@ -109,15 +109,21 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     constructor(props) {
         super(props);
         this.state = {};
+        this.filter = this.filter.bind(this);
     }
 
     componentDidMount() {
         this.props.getAllMovies();
     }
 
-    movies() {
-        const { where = () => true } = this.props;
-        return this.props.movies.filter(where);
+    // movies(){
+    //     const { where = () => true } = this.props
+    //     return this.props.movies.filter(where)
+    // }
+
+    filter(movies) {
+
+        return movies.filter(movie => movie.genres.id === this.props.idProps);
     }
 
     render() {
@@ -127,55 +133,103 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             let item = moviesFromProps[e];
             movies.push(item);
         });
-        console.log('props: ', this.props);
 
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-            'div',
-            { className: 'container-fluid' },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+        const id = this.props.idProps;
+        const genre = this.props.nameProps;
+
+        const filteredMovies = movies.filter(movie => movie.genres.id === this.props.idProps);
+
+        // console.log('filtered: ', this.filter(movies))
+        // console.log('props NAME: ', this.props.nameProps)
+
+        if (id === null) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
-                { className: 'row ml-4' },
+                { className: 'container-fluid' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     'div',
-                    { className: 'col-md-12 display-4 mb-2 text-white' },
-                    'AllMovies'
-                ),
-                ' ',
-                movies.map(movie => {
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    { className: 'row ml-4' },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                         'div',
-                        { className: 'col-md-3 text-white', key: movie.id },
-                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                            'dl',
-                            null,
+                        { className: 'col-md-12 display-4 mb-2 text-white' },
+                        'AllMovies'
+                    ),
+                    ' ',
+                    movies.map(movie => {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            'div',
+                            { className: 'col-md-3 text-white', key: movie.id },
                             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                                'div',
-                                { 'class': 'col-sm-4' },
-                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { 'class': 'img-responsive', src: movie.poster, height: '260', width: '180' })
-                            ),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                                'dt',
-                                { className: 'spacer' },
-                                movie.title
-                            ),
-                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                                'dd',
-                                { className: 'spacer grey' },
-                                movie.director
+                                'dl',
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    'div',
+                                    { 'class': 'col-sm-4' },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { 'class': 'img-responsive', src: movie.poster, height: '260', width: '180' })
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    'dt',
+                                    { className: 'spacer' },
+                                    movie.title
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    'dd',
+                                    { className: 'spacer grey' },
+                                    movie.director
+                                )
                             )
-                        )
-                    );
-                })
-            )
-        );
+                        );
+                    })
+                )
+            );
+        } else {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                'div',
+                { className: 'container-fluid' },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                    'div',
+                    { className: 'row ml-4' },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                        'div',
+                        { className: 'col-md-12 display-4 mb-2 text-white' },
+                        genre
+                    ),
+                    ' ',
+                    movies.filter(singleMovie => singleMovie.genres.id === this.props.idProps).map(movie => {
+
+                        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                            'div',
+                            { className: 'col-md-3 text-white', key: movie.id },
+                            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                'dl',
+                                null,
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    'div',
+                                    { 'class': 'col-sm-4' },
+                                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement('img', { 'class': 'img-responsive', src: movie.poster, height: '260', width: '180' })
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    'dt',
+                                    { className: 'spacer' },
+                                    movie.title
+                                ),
+                                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                                    'dd',
+                                    { className: 'spacer grey' },
+                                    movie.director
+                                )
+                            )
+                        );
+                    })
+                )
+            );
+        }
     }
 }
 
-const mapState = (state, ownProps) => {
-    //console.log('props: ',  ownProps)
+const mapState = state => {
     return {
         movies: state.movies
-        //id: ownProps.match.params.id
     };
 };
 
@@ -209,26 +263,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Dashboard extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
+        this.state = {
+            genreId: null,
+            genreName: ''
+        };
+        this.idFilter = this.idFilter.bind(this);
     }
 
-    propsFromChild() {}
+    idFilter(event, id, name) {
+        this.setState({
+            genreId: id,
+            genreName: name
+        });
+    }
 
     render() {
-        //console.log('Dashboard Props ', this.props)
+        //console.log('Dashboard Props ', this.state.genreId)
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
             { className: 'row' },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
                 { className: 'menu col-md-2' },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], { parentProps: this.propsFromChild.bind(this) })
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], { idFilter: this.idFilter, idProps: this.state.genreId, nameProps: this.state.genreName })
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
                 { className: 'col-md-10' },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_AllMovies__WEBPACK_IMPORTED_MODULE_1__["default"], null)
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_AllMovies__WEBPACK_IMPORTED_MODULE_1__["default"], { idProps: this.state.genreId, nameProps: this.state.genreName })
             )
         );
     }
@@ -335,22 +399,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
-    constructor() {
-        super();
-        this.state = {
-            id: null
-        };
+    constructor(props) {
+        super(props);
     }
 
     componentDidMount() {
         this.props.getAllGenres();
-    }
-
-    setIdOnClick(id) {
-        //this.props.parentProps(id)
-        this.setState({
-            id: id
-        });
     }
 
     render() {
@@ -360,8 +414,9 @@ class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             let item = genresFromProps[e];
             genres.push(item);
         });
-        //console.log('props: ', this.props.match.params.id)
-        //console.log('props state', this.props)
+
+        //console.log('props: ', this.props.parentProps)
+
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
             null,
@@ -376,7 +431,11 @@ class Sidebar extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                     { className: 'text-white' },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                         react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"],
-                        { to: `/movies/genre/${genre.id}`, key: genre.id },
+                        { to: `/movies/genre/${genre.id}`, key: genre.id,
+                            onClick: event => this.props.idFilter(event, genre.id, genre.genre)
+                            // genreId={this.props.genreId === genre.id}
+                            // genreName={this.props.genreName === genre.genre}
+                        },
                         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                             'ul',
                             null,

@@ -5,22 +5,12 @@ import { fetchAllGenres } from '../../store';
 import Dashboard from '../layout/Dashboard';
 
 class Sidebar extends Component {
-    constructor(){
-      super();
-      this.state = {
-        id: null
-      }
+    constructor(props){
+      super(props);
     }
 
     componentDidMount(){
         this.props.getAllGenres();
-    }
-
-    setIdOnClick(id) {
-      //this.props.parentProps(id)
-      this.setState({
-        id : id
-      })
     }
 
     render() {
@@ -30,23 +20,26 @@ class Sidebar extends Component {
             let item = genresFromProps[e];
             genres.push(item)
         })
-        //console.log('props: ', this.props.match.params.id)
-        //console.log('props state', this.props)
+
+        //console.log('props: ', this.props.parentProps)
+
         return (
           <div>
             <span className="text-white main-text">Movies Genres</span>
             {genres.map(genre => {
                         return (
                           <div className="text-white" >
-                                <Link to={`/movies/genre/${genre.id}`} key={genre.id}>
+                                <Link to={`/movies/genre/${genre.id}`} key={genre.id}  
+                                    onClick={(event) => 
+                                        this.props.idFilter(event, genre.id, genre.genre)} 
+                                        // genreId={this.props.genreId === genre.id}
+                                        // genreName={this.props.genreName === genre.genre}
+                                >
                                     <ul>{genre.genre}</ul>
                                 </Link>
-                              {/* <a href="#" onClick={this.setIdOnClick.bind(this, genre.id)} >
-                                  <span>{genre.genre}</span>
-                              </a>   */}
                         </div>
                         )
-                    })}
+            })}
           </div>
         )
     }
