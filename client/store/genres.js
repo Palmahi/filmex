@@ -21,10 +21,6 @@ export const fetchAllGenres = () => {
     }
 }
 
-// const initialState = {
-//     genres: []
-// }
-
 //REDUCER(S)
 export default function (state = [], action) {
     switch (action.type) {
