@@ -9,8 +9,17 @@ class Dashboard extends Component {
             genreId: null,
             genreName: ''
         }
+        // this.filtered = this.filtered.bind(this);
         this.idFilter = this.idFilter.bind(this);
     }
+
+    // filtered(movies) {
+    //     movies.filter(movie => {
+    //         if (movie.genres && movie.genres.length > 0) {
+    //           return movie.genres[0].id === this.state.genreId;
+    //         }
+    //     });
+    // }
 
     idFilter(event, id, name){
         this.setState({
@@ -24,10 +33,17 @@ class Dashboard extends Component {
         return (
             <div className="row">
                 <div className="menu col-md-2">
-                    <Sidebar idFilter={this.idFilter}  idProps={this.state.genreId} nameProps={this.state.genreName}/>
+                    <Sidebar
+                    idFilter={this.idFilter}  
+                    idProps={this.state.genreId} nameProps={this.state.genreName} 
+                    />
                 </div>
                 <div className="col-md-10">
-                  <AllMovies idProps={this.state.genreId} nameProps={this.state.genreName}/>
+                  <AllMovies
+                  idProps={this.state.genreId} 
+                  nameProps={this.state.genreName}
+                //   filtered={this.filtered}
+                  />
                 </div>
             </div>
         )

@@ -109,21 +109,10 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     constructor(props) {
         super(props);
         this.state = {};
-        this.filter = this.filter.bind(this);
     }
 
     componentDidMount() {
         this.props.getAllMovies();
-    }
-
-    // movies(){
-    //     const { where = () => true } = this.props
-    //     return this.props.movies.filter(where)
-    // }
-
-    filter(movies) {
-
-        return movies.filter(movie => movie.genres.id === this.props.idProps);
     }
 
     render() {
@@ -137,10 +126,12 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         const id = this.props.idProps;
         const genre = this.props.nameProps;
 
-        const filteredMovies = movies.filter(movie => movie.genres.id === this.props.idProps);
-
-        // console.log('filtered: ', this.filter(movies))
-        // console.log('props NAME: ', this.props.nameProps)
+        const filteredMovies = movies.filter(movie => {
+            if (movie.genres && movie.genres.length > 0) {
+                return movie.genres[0].id === this.props.idProps;
+            }
+        });
+        // const filteredMovies = this.props.filtered(movies);
 
         if (id === null) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -195,8 +186,7 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                         genre
                     ),
                     ' ',
-                    movies.filter(singleMovie => singleMovie.genres.id === this.props.idProps).map(movie => {
-
+                    filteredMovies.map(movie => {
                         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                             'div',
                             { className: 'col-md-3 text-white', key: movie.id },
@@ -223,7 +213,7 @@ class AllMovies extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
                     })
                 )
             );
-        }
+        };
     }
 }
 
@@ -268,9 +258,17 @@ class Dashboard extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         this.state = {
             genreId: null,
             genreName: ''
-        };
-        this.idFilter = this.idFilter.bind(this);
+            // this.filtered = this.filtered.bind(this);
+        };this.idFilter = this.idFilter.bind(this);
     }
+
+    // filtered(movies) {
+    //     movies.filter(movie => {
+    //         if (movie.genres && movie.genres.length > 0) {
+    //           return movie.genres[0].id === this.state.genreId;
+    //         }
+    //     });
+    // }
 
     idFilter(event, id, name) {
         this.setState({
@@ -287,12 +285,19 @@ class Dashboard extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
                 { className: 'menu col-md-2' },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], { idFilter: this.idFilter, idProps: this.state.genreId, nameProps: this.state.genreName })
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    idFilter: this.idFilter,
+                    idProps: this.state.genreId, nameProps: this.state.genreName
+                })
             ),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
                 { className: 'col-md-10' },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_AllMovies__WEBPACK_IMPORTED_MODULE_1__["default"], { idProps: this.state.genreId, nameProps: this.state.genreName })
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_content_AllMovies__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                    idProps: this.state.genreId,
+                    nameProps: this.state.genreName
+                    //   filtered={this.filtered}
+                })
             )
         );
     }
@@ -585,10 +590,6 @@ const fetchAllGenres = () => {
     }).catch(console.error);
   };
 };
-
-// const initialState = {
-//     genres: []
-// }
 
 //REDUCER(S)
 /* harmony default export */ __webpack_exports__["default"] = (function (state = [], action) {

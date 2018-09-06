@@ -9,24 +9,12 @@ class AllMovies extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
         }
-        this.filter = this.filter.bind(this);
     }
 
     componentDidMount(){
         this.props.getAllMovies();
 
-    }
-
-    // movies(){
-    //     const { where = () => true } = this.props
-    //     return this.props.movies.filter(where)
-    // }
-
-    filter(movies) {
-
-        return movies.filter(movie => movie.genres.id === this.props.idProps);
     }
 
     render() {
@@ -38,12 +26,14 @@ class AllMovies extends Component {
         })
 
         const id = this.props.idProps;
-        const genre = this.props.nameProps
+        const genre = this.props.nameProps;
 
-        const filteredMovies = movies.filter(movie => movie.genres.id === this.props.idProps);
-
-        // console.log('filtered: ', this.filter(movies))
-        // console.log('props NAME: ', this.props.nameProps)
+        const filteredMovies =  movies.filter(movie => {
+            if (movie.genres && movie.genres.length > 0) {
+              return movie.genres[0].id === this.props.idProps;
+            }
+        });
+        // const filteredMovies = this.props.filtered(movies);
 
         if(id === null) {
             return (
@@ -73,13 +63,10 @@ class AllMovies extends Component {
                     <div className="row ml-4">
                     <div className="col-md-12 display-4 mb-2 text-white">{genre}</div>
                         {' '}
-                        {movies.filter(singleMovie => singleMovie.genres.id === this.props.idProps)
-                        .map(movie => {
-
+                        {filteredMovies.map(movie => {
                             return (
                                 <div className="col-md-3 text-white" key={movie.id}>
-                                    <dl>
-                                        
+                                    <dl>                             
                                         <div class="col-sm-4"><img class="img-responsive" src={movie.poster} height="260" width="180" /></div>
                                         <dt className="spacer">{movie.title}</dt>
                                         <dd className="spacer grey">{movie.director}</dd>
@@ -90,7 +77,7 @@ class AllMovies extends Component {
                     </div>
                 </div>
             )
-        }    
+        }; 
     }
 }
 
@@ -98,14 +85,14 @@ const mapState = state => {
     return {
         movies: state.movies,
     }
-}
-  
+};
+
 const mapDispatch = dispatch => {
     return {
         getAllMovies: () => {
             dispatch(fetchAllMovies());
         }
-    }
-}
+    };
+};
 
 export default connect(mapState, mapDispatch)(AllMovies);
