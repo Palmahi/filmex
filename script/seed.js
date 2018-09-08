@@ -34,6 +34,10 @@ async function seed () {
     rating: '5'}),
     Movie.create({title: 'The Amazing Spider-Man 2', year: '2014', director: 'Marc Webb', duration: '142', description: "Confident in his powers as Spider-Man, Peter Parker (Andrew Garfield) embraces his new role as a hero and spends time with Gwen Stacy (Emma Stone) in between protecting New York from criminals. However, his greatest battle yet is about to begin. With the emergence of Electro (Jamie Foxx), Peter must confront an enemy far more powerful than he is. And when his old friend Harry Osborn (Dane DeHaan) returns, Peter comes to realize that all his enemies have one thing in common: Oscorp.", poster:'https://st.kp.yandex.net/im/poster/2/3/0/kinopoisk.ru-The-Amazing-Spider-Man-2-2301034.jpg',
     rating: '4'}),
+    Movie.create({title: 'Harry Potter and the Prisoner of Azkaban', year: '2004', director: 'Alfonso Cuarón', duration: '142', description: "Harry Potter's (Daniel Radcliffe) third year at Hogwarts starts off badly when he learns deranged killer Sirius Black (Gary Oldman) has escaped from Azkaban prison and is bent on murdering the teenage wizard. While Hermione's (Emma Watson) cat torments Ron's (Rupert Grint) sickly rat, causing a rift among the trio, a swarm of nasty Dementors is sent to protect the school from Black. A mysterious new teacher helps Harry learn to defend himself, but what is his secret tie to Sirius Black?", poster:'https://st.kp.yandex.net/im/poster/1/3/5/kinopoisk.ru-Harry-Potter-and-the-Prisoner-of-Azkaban-1356208.jpg',
+    rating: '5'}),
+    Movie.create({title: 'La La Land', year: '2016', director: 'Damien Chazelle', duration: '128', description: "Sebastian (Ryan Gosling) and Mia (Emma Stone) are drawn together by their common desire to do what they love. But as success mounts they are faced with decisions that begin to fray the fragile fabric of their love affair, and the dreams they worked so hard to maintain in each other threaten to rip them apart.", poster:'https://st.kp.yandex.net/im/poster/2/8/0/kinopoisk.ru-La-La-Land-2801972.jpg',
+    rating: '5'})
   
 ])
 
@@ -61,9 +65,12 @@ async function seed () {
 
 
   const addTripsToCategories = await Promise.all([
-    Genre.findById(1).then(movies => movies.addMovie(2)),
-    Genre.findById(1).then(movies => movies.addMovie(1)),
-    // Category.findById(1).then(category => category.addTrip(5)),
+    Genre.findById(1).then(movies => movies.addMovie([2,6,10])),//action
+    Genre.findById(2).then(movies => movies.addMovie([1,4,8,12])), //romance
+    Genre.findById(3).then(movies => movies.addMovie([11])), //fantasy
+    Genre.findById(4).then(movies => movies.addMovie([5,6])), //adventure
+    Genre.findById(5).then(movies => movies.addMovie([3,7])), //drama
+    Genre.findById(6).then(movies => movies.addMovie(9)), //crime
   ])
 }
 
